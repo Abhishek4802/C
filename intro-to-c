@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main() {
+    int num;
+    float f;
+    char c;
+
+    printf("Enter an integer: ");
+    scanf("%d", &num);
+    printf("The integer you entered is: %d\n", num);
+
+    printf("Enter a floating point number: ");
+    scanf("%f", &f);
+    printf("The floating point number you entered is: %f\n", f);
+
+    printf("Enter a character: ");
+    scanf(" %c", &c);
+    printf("The character you entered is: %c\n", c);
+
+    return 0;
+}
