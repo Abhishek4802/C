@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// node structure
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+// function to print the linked list
+void printList(struct Node* node) {
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\n");
+}
+
+// function to insert a node at the beginning of the linked list
+void insertAtBeginning(struct Node** headRef, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = *headRef;
+    *headRef = newNode;
+}
+
+// function to insert a node at the end of the linked list
+void insertAtEnd(struct Node** headRef, int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    if (*headRef == NULL) {
+        *headRef = newNode;
+        return;
+    }
+    struct Node* node = *headRef;
+    while (node->next != NULL) {
+        node = node->next;
+    }
+    node->next = newNode;
+}
+
+// function to delete a node with a given data value from the linked list
+void deleteNode(struct Node** headRef, int data) {
+    struct Node* temp = *headRef, *prev = NULL;
+    if (temp != NULL && temp->data == data) {
+        *headRef = temp->next;
+        free(temp);
+        return;
+    }
+    while (temp != NULL && temp->data != data) {
+        prev = temp;
+        temp = temp->next;
+    }
+    if (temp == NULL) {
+        return;
+    }
+    prev->next = temp->next;
+    free(temp);
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    insertAtEnd(&head, 1);
+    insertAtBeginning(&head, 2);
+    insertAtEnd(&head, 3);
+    insertAtBeginning(&head, 4);
+
+    printf("Linked list: ");
+    printList(head);
+
+    deleteNode(&head, 2);
+
+    printf("Linked list after deleting node with data=2: ");
+    printList(head);
+
+    return 0;
+}
